@@ -6,6 +6,9 @@ package Tugas3;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  *
  * @author Achmad Rafiq Syaddid
@@ -233,7 +236,7 @@ public class AplikasiPerhitunganDiskon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
+      try {
         double hargaAsli = Double.parseDouble(jTextField6.getText()); // Harga Asli
         int diskon = jSlider1.getValue();
         String kode = jTextField5.getText().trim(); // Kode kupon
@@ -248,13 +251,19 @@ public class AplikasiPerhitunganDiskon extends javax.swing.JFrame {
         double penghematan = hargaAsli * diskon / 100.0;
         double hargaAkhir = hargaAsli - penghematan;
 
-        jTextField2.setText(String.format("Rp %.2f", penghematan)); // Jumlah Penghematan
-        jTextField7.setText(String.format("Rp %.2f", hargaAkhir));  // Harga Akhir
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        nf.setMaximumFractionDigits(0);
+        String strHargaAkhir = nf.format(hargaAkhir);
+        String strPenghematan = nf.format(penghematan);
+        String strHargaAsli = nf.format(hargaAsli);
 
-        // Simpan ke riwayat tapi belum ditampilkan
+        jTextField2.setText(strPenghematan); // Jumlah Penghematan
+        jTextField7.setText(strHargaAkhir);  // Harga Akhir
+
+        // Simpan ke riwayat (pakai format yang rapi)
         String hasil = String.format(
-            "Harga: Rp %.2f | Diskon: %d%% | Hemat: Rp %.2f | Akhir: Rp %.2f",
-            hargaAsli, diskon, penghematan, hargaAkhir
+            "Harga: %s | Diskon: %d%% | Hemat: %s | Akhir: %s",
+            strHargaAsli, diskon, strPenghematan, strHargaAkhir
         );
 
         if (riwayatList == null) riwayatList = new ArrayList<>();
