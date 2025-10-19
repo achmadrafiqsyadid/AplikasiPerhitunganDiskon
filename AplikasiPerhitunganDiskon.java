@@ -252,7 +252,6 @@ public class AplikasiPerhitunganDiskon extends javax.swing.JFrame {
         double hargaAkhir = hargaAsli - penghematan;
 
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        nf.setMaximumFractionDigits(0);
         String strHargaAkhir = nf.format(hargaAkhir);
         String strPenghematan = nf.format(penghematan);
         String strHargaAsli = nf.format(hargaAsli);
